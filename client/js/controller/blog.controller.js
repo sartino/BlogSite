@@ -1,31 +1,19 @@
-//Logic for page actions here. 
+//var myBlogApp = angular.module('myBlogApp.controllers', []);
 
-var myBlogApp = angular.module('myBlogApp.controllers', []);
-
-myBlogApp.controller('myController', ['$scope', 'Blog', function ($scope, Blog) {
-    Blog.getItems().then(function (data) {
-        $scope.items = data;
-    }).catch(function () {
+myBlogApp.controller('blogController', ['$scope', '$location', 'Blog', function ($scope, $location, Blog) {
+    $scope.posts = [];
+	Blog.getItems().then(function (data) {
+        $scope.items = data.data.results
+		for (var i = 0; i < data.data.results.length; i++) {
+			var post = {
+				title: data.data.results[i].title,
+				content: data.data.results[i].content,
+				author: data.data.results[i].author
+			}
+			$scope.posts.push(post)
+		}
+    }).catch(function (error) {
         alert('error');
 
     });
 }]);
-
-//myBlogApp.controller('someOtherController')
-
-
-/*  -- from walter --
-var app = angular.module('myApp.controllers', ['ngRoute']);
-
-app.controller('SampleController', ['$scope', 'Blog', function($scope, Blog){
-    $scope.posts = [];
-    Blog.getItems().then(function(blogPosts) {
-        blogPosts.forEach(function(post) {
-            $scope.posts.unshift(post);
-        });
-        // for (var i = 0; i < blogPosts.length; i++ ){
-        //     $scope.posts.push(blogPosts[i]);
-        // }
-    });
-}]);
-*/
