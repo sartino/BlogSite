@@ -1,1 +1,18 @@
-<h1>newpost.html</h1>
+<!-- <p>newpost.html</p> -->
+<div class="container">
+	<div class="row">
+		<button class="btn" ng-click="newPost()">Submit Post</button>
+	</div>
+	<div class="input">
+		<form>
+			Name:
+			<input type="text" name="firstname" ng-model="author">
+			<br>
+			<br> Title:
+			<input type="text" name="lastname" ng-model="title">
+			<br>
+			<br>
+		</form>
+		<textarea rows="6" cols="100" ng-model="content">Type body here...</textarea>
+	</div>
+</div>

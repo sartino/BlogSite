@@ -1,5 +1,6 @@
-//var myBlogApp = angular.module('myBlogApp.controllers', []);
+var myBlogApp = angular.module('myBlogApp.controllers', []);
 
+// GET
 myBlogApp.controller('blogController', ['$scope', '$location', 'Blog', function ($scope, $location, Blog) {
     $scope.posts = [];
 	Blog.getItems().then(function (data) {
@@ -10,10 +11,32 @@ myBlogApp.controller('blogController', ['$scope', '$location', 'Blog', function 
 				content: data.data.results[i].content,
 				author: data.data.results[i].author
 			}
-			$scope.posts.push(post)
+			$scope.posts.unshift(post)
 		}
     }).catch(function (error) {
         alert('error');
-
     });
+	// switches page view
+	$scope.createPost = function () {
+		$location.path('/newpost');
+	}
+}]);
+
+// POST
+myBlogApp.controller('writeBlogController', ['$scope', '$location', 'Blog', function ($scope, $location, Blog) {
+	
+	$scope.newPost = function () {
+		var post = {
+			title: $scope.title,
+			author: $scope.author,
+			content: $scope.content
+		}
+		var postData = JSON.stringify(post);
+		Blog.postItems(postData)
+			.then(function () {
+				$location.path('/');
+			}).catch(function (err) {
+				console.log(err);
+			})
+	}
 }]);
