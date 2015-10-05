@@ -1,10 +1,8 @@
 //Use to instantiate app, connect factory & controllers and configure app.
 
-
-
 var myBlogApp = angular.module('myBlogApp', ['ngRoute', 'ngResource', 'myBlogApp.factories', 'myBlogApp.controllers']);
 
-myBlogApp.config(function ($routeProvider) {
+myBlogApp.config(function ($routeProvider: ng.route.IRouteProvider) {
     $routeProvider
         .when('/', {
             templateUrl: '../views/blogposts.html',
